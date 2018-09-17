@@ -13,24 +13,23 @@ void sigusr2Handler (int sigNum);
 
 int main(int argc, char*argv[]){
 
-	int status, cpid;
+	int status, pid;
 	// Make fork
-	cpid = fork(); //fork returns the child pid
+	pid = fork(); //fork returns the child pid
 	// seed random with a random number
 	srand(rand());
-	if(cpid < 0){
+	if(pid < 0){
 		// Fork failed
 		perror("Fork failed\n");
 		exit(1);
 	}
-	else if (!cpid){ // child
+	else if (!pid){ // child
 		// Child process is created
-		waitpid(cpid, &status, 0);
+		waitpid(pid, &status, 0);
 		//wait a random amount of time between 1 and 5 seconds
 		sleep((rand()%5)+1);
 		// trigger a signal to send to the parent
-		printf("child process: %d\n", cpid);
-		printf("child process: %d\n", cpid);
+		printf("child process: %d\n", pid);
 		rand() % 1 > 0 ? /*puts("2"): puts("1");//*/ kill(getppid(), SIGUSR2): kill(getppid(), SIGUSR2);
 
 	}
@@ -40,7 +39,7 @@ int main(int argc, char*argv[]){
 		signal(SIGUSR1, sigusr1Handler);
 		signal(SIGUSR2, sigusr2Handler);
 		puts("parent process");
-		exit(0);
+		//exit(0);
 	}
 
 }
