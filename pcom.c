@@ -32,7 +32,7 @@ int main(int argc, char*argv[]){
 			sleep((rand()%5)+1);
 			// trigger a signal to send to the parent
 			//printf("child process: %d\n", pid);
-			puts("wating...\t"ß);
+			puts("wating...\t");
 			rand() % 1 > 0 ? kill(getppid(), SIGUSR2): kill(getppid(), SIGUSR2);
 	  }
 	}
