@@ -7,6 +7,9 @@
 #include <sys/resource.h>
 #include <stdio.h>
 
+void sigusr1Handler (int sigNum);
+void sigusr2Handler (int sigNum);
+
 int main(int argc, char*argv[]){
 
 	int status, pid;
