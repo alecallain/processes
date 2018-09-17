@@ -23,15 +23,16 @@ int main(int argc, char*argv[]){
 		perror("Fork failed\n");
 		exit(1);
 	}
-	else if (cpid){ // child
+	else if (!cpid){ // child
 		// Child process is created
 		waitpid(cpid, &status, 0);
 		//wait a random amount of time between 1 and 5 seconds
 		sleep((rand()%5)+1);
 		// trigger a signal to send to the parent
-
+		printf("child process: %d\n", cpid);
+		printf("child process: %d\n", cpid);
 		rand() % 1 > 0 ? /*puts("2"): puts("1");//*/ kill(getppid(), SIGUSR2): kill(getppid(), SIGUSR2);
-		printf("child process: %d", cpid);
+
 	}
 	else { //parent
 		// Command is executed
