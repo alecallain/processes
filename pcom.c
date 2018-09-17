@@ -25,7 +25,6 @@ int main(int argc, char*argv[]){
 	}
 	else if (!pid){ // child
 		// Child process is created
-		waitpid(pid, &status, 0);
 		//wait a random amount of time between 1 and 5 seconds
 		sleep((rand()%5)+1);
 		// trigger a signal to send to the parent
@@ -35,6 +34,7 @@ int main(int argc, char*argv[]){
 	}
 	else { //parent
 		// Command is executed
+		waitpid(pid, &status, 0);
 		printf("This is the parent: %d", getppid());
 		signal(SIGUSR1, sigusr1Handler);
 		signal(SIGUSR2, sigusr2Handler);
