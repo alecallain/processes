@@ -10,8 +10,8 @@
 int main(int argc, char*argv[]){
 
 	int status, pid;
-	//struct rusage usage;		
-	// Make fork 
+	//struct rusage usage;
+	// Make fork
 	pid = fork();
 	if(pid < 0){
 		// Fork failed
@@ -21,12 +21,21 @@ int main(int argc, char*argv[]){
 	else if (pid){ // child
 		// Child process is created
 		waitpid(pid, &status, 0);
-		puts("child process");	
+		puts("child process");
 	}
 	else { //parent
 		// Command is executed
+		signal(SIGUSR1, sigusr1Handler);
+		signal(SIGUSR2, sigusr2Handler);
 		puts("parent process");
-		exit(0);	
+		exit(0);
 	}
 
+}
+void sigusr1Handler (int sigNum){
+	puts("Signal 1 uesd?\n");
+}
+
+void sigusr2Handler (int sigNum){
+	puts("Signal 1 uesd?\n");
 }
