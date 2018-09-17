@@ -29,11 +29,13 @@ int main(int argc, char*argv[]){
 		//wait a random amount of time between 1 and 5 seconds
 		sleep((rand()%5)+1);
 		// trigger a signal to send to the parent
+
 		rand() % 1 > 0 ? /*puts("2"): puts("1");//*/ kill(getppid(), SIGUSR2): kill(getppid(), SIGUSR2);
-		puts("child process");
+		puts("child process: %s",cpid);
 	}
 	else { //parent
 		// Command is executed
+		puts("This is the parent: %s" getppid());
 		signal(SIGUSR1, sigusr1Handler);
 		signal(SIGUSR2, sigusr2Handler);
 		puts("parent process");
