@@ -16,6 +16,10 @@ int main(int argc, char*argv[]){
 	int sig = 1;
 	int status, pid;
 	// Make fork
+	signal(SIGUSR1, sigusr1Handler);
+	signal(SIGUSR2, sigusr2Handler);
+	signal(SIGINT, sigintHandler);
+
 	pid = fork(); //fork returns the child pid
 	// seed random with a random number
 	srand(rand());
@@ -27,21 +31,17 @@ int main(int argc, char*argv[]){
 	else if (!pid){ // child
 		puts("child");
 		//wait a random amount of time between 1 and 5 seconds
-		//while(sig){
+		while(1){
 			sleep((rand()%5)+1);
 			// trigger a signal to send to the parent
 			puts("wating...\t");
 			rand() % 2 > 0 ? kill(getppid(), SIGUSR2): kill(getppid(), SIGUSR1);
-		//}
-		kill(getppid(), SIGINT);
+		}
 	}
 	else { //parent
 		puts("Parent");
 		waitpid(pid, &status, 0);
-		signal(SIGUSR1, sigusr1Handler);
-		signal(SIGUSR2, sigusr2Handler);
-		signal(SIGINT, sigintHandler);
-		exit(0);
+		//exit(0);
 	}
 
 }
