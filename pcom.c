@@ -28,12 +28,10 @@ int main(int argc, char*argv[]){
 		exit(1);
 	}
 	else if (!pid){ // child
-		puts("child");
 		//wait a random amount of time between 1 and 5 seconds
 		while(1){
 			sleep((rand()%5)+1);
 			// trigger a signal to send to the parent
-			printf("wating...\t");
 			rand() % 2 > 0 ? kill(getppid(), SIGUSR2): kill(getppid(), SIGUSR1);
 		}
 	}
@@ -47,12 +45,12 @@ int main(int argc, char*argv[]){
 //install siguser1
 void sigusr1Handler (int sigNum){
 	//signal(sigNum, SIG_IGN); // if we area already handeling the signal then we dont want to handle it if it triggers again while were handling it
-	puts("received a SIGUSR1 signal\n");
+	puts("received a SIGUSR1 signal\nwating...");
 }
 //install sigusr2
 void sigusr2Handler (int sigNum){
 	//signal(sigNum, SIG_IGN);
-	puts("received a SIGUSR2 signal\n");
+	puts("received a SIGUSR2 signal\nwaiting...");
 }
 void sigintHandler (int sigNum){
 	//signal(sigNum, SIG_IGN);
