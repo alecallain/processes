@@ -31,7 +31,7 @@ int main(int argc, char*argv[]){
 		// trigger a signal to send to the parent
 		//printf("child process: %d\n", pid);
 		puts("wating...\t");
-		rand() % 1 > 0 ? kill(getppid(), SIGUSR2): kill(getppid(), SIGUSR2);
+		rand() % 2 > 0 ? kill(getppid(), SIGUSR2): kill(getppid(), SIGUSR1);
 	}
 	else { //parent
 		// Command is executed
