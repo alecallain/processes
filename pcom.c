@@ -25,6 +25,7 @@ int main(int argc, char*argv[]){
 		exit(1);
 	}
 	else if (!pid){ // child
+		puts("child");
 		//wait a random amount of time between 1 and 5 seconds
 		while(!SIGINT){
 			sleep((rand()%5)+1);
@@ -35,6 +36,7 @@ int main(int argc, char*argv[]){
 		kill(getppid(), SIGINT);
 	}
 	else { //parent
+		puts("Parent");
 		waitpid(pid, &status, 0);
 		signal(SIGUSR1, sigusr1Handler);
 		signal(SIGUSR2, sigusr2Handler);
