@@ -33,12 +33,12 @@ int main(int argc, char*argv[]){
 		while(1){
 			sleep((rand()%5)+1);
 			// trigger a signal to send to the parent
-			puts("wating...\t");
+			printf("wating...\t");
 			rand() % 2 > 0 ? kill(getppid(), SIGUSR2): kill(getppid(), SIGUSR1);
 		}
 	}
 	else { //parent
-		puts("Parent");
+		printf("Spawned child process, id, %d", pid);
 		waitpid(pid, &status, 0);
 		//exit(0);
 	}
