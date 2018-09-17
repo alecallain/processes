@@ -25,16 +25,13 @@ int main(int argc, char*argv[]){
 		exit(1);
 	}
 	else if (!pid){ // child
-		while(1){
-
-			// Child process is created
-			//wait a random amount of time between 1 and 5 seconds
-			sleep((rand()%5)+1);
-			// trigger a signal to send to the parent
-			//printf("child process: %d\n", pid);
-			puts("wating...\t");
-			rand() % 1 > 0 ? kill(getppid(), SIGUSR2): kill(getppid(), SIGUSR2);
-	  }
+		// Child process is created
+		//wait a random amount of time between 1 and 5 seconds
+		sleep((rand()%5)+1);
+		// trigger a signal to send to the parent
+		//printf("child process: %d\n", pid);
+		puts("wating...\t");
+		rand() % 1 > 0 ? kill(getppid(), SIGUSR2): kill(getppid(), SIGUSR2);
 	}
 	else { //parent
 		// Command is executed
@@ -42,7 +39,7 @@ int main(int argc, char*argv[]){
 		signal(SIGUSR1, sigusr1Handler);
 		signal(SIGUSR2, sigusr2Handler);
 		signal(SIGINT, sigintHandler);
-		//exit(0);
+		exit(0);
 	}
 
 }
