@@ -10,6 +10,7 @@
 
 void sigusr1Handler (int sigNum);
 void sigusr2Handler (int sigNum);
+void sigintHandler (int sigNum);
 
 int main(int argc, char*argv[]){
 
