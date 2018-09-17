@@ -11,7 +11,6 @@
 void sigusr1Handler (int sigNum);
 void sigusr2Handler (int sigNum);
 void sigintHandler (int sigNum);
-int sig;
 
 int main(int argc, char*argv[]){
 	int sig = 1;
@@ -28,12 +27,12 @@ int main(int argc, char*argv[]){
 	else if (!pid){ // child
 		puts("child");
 		//wait a random amount of time between 1 and 5 seconds
-		while(sig){
+		//while(sig){
 			sleep((rand()%5)+1);
 			// trigger a signal to send to the parent
 			puts("wating...\t");
 			rand() % 2 > 0 ? kill(getppid(), SIGUSR2): kill(getppid(), SIGUSR1);
-		}
+		//}
 		kill(getppid(), SIGINT);
 	}
 	else { //parent
