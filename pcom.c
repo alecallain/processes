@@ -24,21 +24,23 @@ int main(int argc, char*argv[]){
 		exit(1);
 	}
 	else if (!pid){ // child
-		// Child process is created
-		//wait a random amount of time between 1 and 5 seconds
-		sleep((rand()%5)+1);
-		// trigger a signal to send to the parent
-		printf("child process: %d\n", pid);
-		rand() % 1 > 0 ? /*puts("2"): puts("1");//*/ kill(getppid(), SIGUSR2): kill(getppid(), SIGUSR2);
+		while(1){
 
+			// Child process is created
+			//wait a random amount of time between 1 and 5 seconds
+			sleep((rand()%5)+1);
+			// trigger a signal to send to the parent
+			//printf("child process: %d\n", pid);
+			puts("wating...\t")
+			rand() % 1 > 0 ? kill(getppid(), SIGUSR2): kill(getppid(), SIGUSR2);
+	  }
 	}
 	else { //parent
 		// Command is executed
 		waitpid(pid, &status, 0);
-		printf("This is the parent: %d", getppid());
 		signal(SIGUSR1, sigusr1Handler);
 		signal(SIGUSR2, sigusr2Handler);
-		puts("parent process");
+		signal(SIGINT, sigintHandler);
 		//exit(0);
 	}
 
@@ -46,10 +48,15 @@ int main(int argc, char*argv[]){
 //install siguser1
 void sigusr1Handler (int sigNum){
 	//signal(sigNum, SIG_IGN); // if we area already handeling the signal then we dont want to handle it if it triggers again while were handling it
-	puts("Signal 1 uesd?\n");
+	puts("received a SIGUSR1 signal\n");
 }
 //install sigusr2
 void sigusr2Handler (int sigNum){
 	//signal(sigNum, SIG_IGN);
-	puts("Signal 1 uesd?\n");
+	puts("received a SIGUSR2 signal\n");
+}
+void sigintHandler (int sigNum){
+	//signal(sigNum, SIG_IGN);
+	puts("^C Recived, Shutting Down...");
+	exit(0);
 }
