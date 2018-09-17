@@ -31,8 +31,10 @@ int main(int argc, char*argv[]){
 		//wait a random amount of time between 1 and 5 seconds
 		while(1){
 			sleep((rand()%5)+1);
+			printf("waiting...\t");
 			// trigger a signal to send to the parent
 			rand() % 2 > 0 ? kill(getppid(), SIGUSR2): kill(getppid(), SIGUSR1);
+			fflush();
 		}
 	}
 	else { //parent
@@ -45,15 +47,15 @@ int main(int argc, char*argv[]){
 //install siguser1
 void sigusr1Handler (int sigNum){
 	//signal(sigNum, SIG_IGN); // if we area already handeling the signal then we dont want to handle it if it triggers again while were handling it
-	puts("received a SIGUSR1 signal\nwating...");
+	puts("received a SIGUSR1 signal\n");
 }
 //install sigusr2
 void sigusr2Handler (int sigNum){
 	//signal(sigNum, SIG_IGN);
-	puts("received a SIGUSR2 signal\nwaiting...");
+	puts("received a SIGUSR2 signal\n");
 }
 void sigintHandler (int sigNum){
 	//signal(sigNum, SIG_IGN);
-	puts("^C Recived, Shutting Down...");
+	puts("^C Recived, Shutting Down...\n");
 	exit(0);
 }
