@@ -13,7 +13,6 @@ void sigusr2Handler (int sigNum);
 void sigintHandler (int sigNum);
 
 int main(int argc, char*argv[]){
-	int sig = 1;
 	int status, pid;
 	// Make fork
 	signal(SIGUSR1, sigusr1Handler);
@@ -58,6 +57,5 @@ void sigusr2Handler (int sigNum){
 void sigintHandler (int sigNum){
 	//signal(sigNum, SIG_IGN);
 	puts("^C Recived, Shutting Down...");
-	sig = 0;
 	exit(0);
 }
