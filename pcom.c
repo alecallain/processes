@@ -36,7 +36,7 @@ int main(int argc, char*argv[]){
 		}
 	}
 	else { //parent
-		printf("Spawned child process, id, %d", pid);
+		printf("Spawned child process, id, %d\nwaiting...\t", pid);
 		waitpid(pid, &status, 0);
 		//exit(0);
 	}
