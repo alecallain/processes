@@ -34,7 +34,7 @@ int main(int argc, char*argv[]){
 			printf("waiting...\t");
 			// trigger a signal to send to the parent
 			rand() % 2 > 0 ? kill(getppid(), SIGUSR2): kill(getppid(), SIGUSR1);
-			fflush();
+			fflush(stdout);
 		}
 	}
 	else { //parent
