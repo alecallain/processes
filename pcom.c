@@ -6,24 +6,28 @@
 #include <sys/time.h>
 #include <sys/resource.h>
 #include <stdio.h>
+#include <signal.h>
 
 void sigusr1Handler (int sigNum);
 void sigusr2Handler (int sigNum);
 
 int main(int argc, char*argv[]){
 
-	int status, pid;
-	//struct rusage usage;
+	int status, cpid;
 	// Make fork
-	pid = fork();
-	if(pid < 0){
+	cpid = fork(); //fork returns the child pid
+	// seed random with a random number
+	srand(rand());
+	if(cpid < 0){
 		// Fork failed
 		perror("Fork failed\n");
 		exit(1);
 	}
-	else if (pid){ // child
+	else if (cpid){ // child
 		// Child process is created
-		waitpid(pid, &status, 0);
+		waitpid(cpid, &status, 0);
+		//wait a random amount of time between 1 and 5 seconds
+		sleep((rand()%5)+1);
 		puts("child process");
 	}
 	else { //parent
@@ -35,10 +39,13 @@ int main(int argc, char*argv[]){
 	}
 
 }
+//install siguser1
 void sigusr1Handler (int sigNum){
+	signal(sigNum, SIG_IGN) // if we area already handeling the signal then we dont want to handle it if it triggers again while were handling it
 	puts("Signal 1 uesd?\n");
 }
-
+//install sigusr2
 void sigusr2Handler (int sigNum){
+	signal(sigNum, SIG_IGN)
 	puts("Signal 1 uesd?\n");
 }
