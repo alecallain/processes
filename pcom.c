@@ -31,11 +31,11 @@ int main(int argc, char*argv[]){
 		// trigger a signal to send to the parent
 
 		rand() % 1 > 0 ? /*puts("2"): puts("1");//*/ kill(getppid(), SIGUSR2): kill(getppid(), SIGUSR2);
-		printf("child process: %s", cpid);
+		printf("child process: %d", cpid);
 	}
 	else { //parent
 		// Command is executed
-		printf("This is the parent: %s", getppid());
+		printf("This is the parent: %d", getppid());
 		signal(SIGUSR1, sigusr1Handler);
 		signal(SIGUSR2, sigusr2Handler);
 		puts("parent process");
