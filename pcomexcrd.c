@@ -31,7 +31,7 @@ void sigusr2Handler (int sigNum);
 void sigintHandler (int sigNum);
 
 int main(int argc, char*argv[]){
-	int status, pid;
+	int status, pid, pid1;
 	// Make fork
 	// signal(SIGUSR1, sigusr1Handler);
 	// signal(SIGUSR2, sigusr2Handler);
@@ -64,7 +64,7 @@ int main(int argc, char*argv[]){
 		}
 	}
 	else { //parent
-		printf("Spawned child process, id, %d\nwaiting...\t", pid);
+		printf("Spawned child processes: id: %d and id: %d\nwaiting...\t", pid, pid1);
 		waitpid(pid, &status, 0);
 		//exit(0);
 	}
