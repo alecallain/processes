@@ -20,15 +20,15 @@
  /** Insanciate the handlers */
 void sigusr1Handler (int sigNum);
 void sigusr2Handler (int sigNum);
-void sigintHandler (int sigNum);
-
+void sigintHandlerParent (int sigNum);
+void sigintHandlerchild (int sigNum);
 /** Main function */
 int main(int argc, char*argv[]){
 	int status, pid;
 	// install the signals
 	signal(SIGUSR1, sigusr1Handler);
 	signal(SIGUSR2, sigusr2Handler);
-	signal(SIGINT, sigintHandler);
+	signal(SIGINT, sigintHandlerParent);
 	// Make fork
 	pid = fork(); //fork returns the child pid
 	// seed random with a random number
@@ -40,6 +40,7 @@ int main(int argc, char*argv[]){
 	}
 	else if (!pid){ // child
 		// loop until SIGINT is triggered
+		signal(SIGINT, sigintHandlerChild);
 		while(1){
 			//wait a random amount of time between 1 and 5 seconds
 			sleep((rand()%5)+1);
@@ -63,7 +64,11 @@ void sigusr2Handler (int sigNum){
 	fflush(stdout);
 }
 /** Signal overwrite for SIGINT */
-void sigintHandler (int sigNum){
+void sigintHandlerParent (int sigNum){
 	puts("^C Recived, Shutting Down...\n");
+	exit(0);
+}
+/** Signal overwrite for SIGINT */
+void sigintHandlerchild (int sigNum){
 	exit(0);
 }
