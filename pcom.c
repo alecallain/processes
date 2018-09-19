@@ -65,7 +65,7 @@ void sigusr2Handler (int sigNum){
 }
 /** Signal overwrite for SIGINT */
 void sigintHandlerParent (int sigNum){
-	puts("\n Recived `^C`, Shutting Down...\n");
+	puts("\nRecived `^C`, Shutting Down...\n");
 	exit(0);
 }
 /** Signal overwrite for SIGINT */
