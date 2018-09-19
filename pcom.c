@@ -21,7 +21,7 @@
 void sigusr1Handler (int sigNum);
 void sigusr2Handler (int sigNum);
 void sigintHandlerParent (int sigNum);
-void sigintHandlerchild (int sigNum);
+void sigintHandlerChild (int sigNum);
 /** Main function */
 int main(int argc, char*argv[]){
 	int status, pid;
@@ -69,6 +69,6 @@ void sigintHandlerParent (int sigNum){
 	exit(0);
 }
 /** Signal overwrite for SIGINT */
-void sigintHandlerchild (int sigNum){
+void sigintHandlerChild (int sigNum){
 	exit(0);
 }
